@@ -52,8 +52,6 @@ namespace Socket_Quartz_Manage.SocketBase.SocketClient
         private void StartAccept(SocketAsyncEventArgs acceptEventArg)
         {
             bool willRaiseEvent = false;
-            //while (!willRaiseEvent)
-            //{
             m_maxNumberAcceptedClients.WaitOne(); //信号量控制线程数量，限制并发
 
             acceptEventArg.AcceptSocket = null;
@@ -62,15 +60,11 @@ namespace Socket_Quartz_Manage.SocketBase.SocketClient
             {
                 ProcessConnect(acceptEventArg);
             }
-
-            //}
         }
 
         void EventArgConnected_Completed(object sender, SocketAsyncEventArgs e)
         {
             ProcessConnect(e); //处理连接成功的socket连接
-
-            //StartAccept(e); //等待下一个socket客户端连接
         }
 
         private void ProcessConnect(SocketAsyncEventArgs e)
